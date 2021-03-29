@@ -1,0 +1,28 @@
+import 'dart:math';
+
+int chooseBestDistance(int t, int k, List<int> ls) {
+  int backTrack(int i, int sum, int taken) {
+    if (sum > t || taken > k) {
+      return -1;
+    }
+    if (i == ls.length) {
+      if (taken == k) {
+        return sum;
+      } else {
+        return -1;
+      }
+    }
+    var pick = backTrack(i + 1, sum + ls[i], taken + 1);
+    var leave = backTrack(i + 1, sum, taken);
+    return max(pick, leave);
+  }
+
+  var result = backTrack(0, 0, 0);
+  print('$result');
+  return result;
+}
+
+void main() {
+  chooseBestDistance(174, 3, [51, 56, 58, 59, 61]); //173
+  chooseBestDistance(163, 3, [50]); // -1
+}
